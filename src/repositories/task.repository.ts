@@ -10,9 +10,15 @@ export class TaskRepository {
         return await prisma.task.findMany();
     }
 
+    async single(id: any) {
+        return await prisma.task.findUnique({
+            where: id
+        })
+    }
+
     async update(data: TaskUpdateType) {
         const {id, ...updatedData} = data;
-        
+
         return await prisma.task.update({
             where: { id },
             data: updatedData

@@ -1,7 +1,13 @@
-import { addTaskService, deleteTaskService, getAllTaskService, updateTaskService } from "@/services/task";
+import { addTaskService, deleteTaskService, getAllTaskService, updateTaskService, viewTaskService } from "@/services/task";
 import type { Request, Response } from "express";
 
 class TaskController {
+  async getOneTask(req: Request, res: Response) {
+    const { id } = req.body ?? {};
+    const response = await viewTaskService(id);
+    return res.status(response.code).json(response);
+  }
+
   async getAllTasks(req: Request, res: Response) {
     const response = await getAllTaskService();
     return res.status(response.code).json(response);
