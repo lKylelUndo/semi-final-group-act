@@ -30,6 +30,18 @@ model User {
 
   role             Role      @default(USER) // default value from enum Role "USER"
   tokens           Token[]
+
+  tasks            Task[]
+}
+
+model Task {
+  id String @id @default(uuid())
+  task_title String
+  task_description String
+  task_date String
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Token {
