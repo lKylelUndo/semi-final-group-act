@@ -1,10 +1,13 @@
 import taskController from "@/controllers/task.controller";
+import { authenticateAccessToken } from "@/middlewares/auth.middleware";
 import { validateSchema } from "@/middlewares/validate-schema.middleware";
 import { taskCreationSchema, taskDeleteSchema, taskUpdateSchema } from "@/schema/task";
 import { taskViewSchema } from "@/schema/task/task.view.schema";
 import { Router } from "express";
 
 const router = Router();
+
+router.use(authenticateAccessToken);
 
 router.get("/v1/view-task", validateSchema(taskViewSchema), taskController.getOneTask);
 router.get("/v1/get-all-tasks", taskController.getAllTasks);
